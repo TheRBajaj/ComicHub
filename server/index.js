@@ -51,9 +51,17 @@ if (process.env.NODE_ENV === 'production'){
   app.use(express.static('../client/build'));
 }
 
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+// app.get('*', (request, response) => {
+// 	response.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+// });
+
+if (process.env.NODE_ENV === "production" || true) {
+	app.get('*', function(req, res) {
+		res.sendFile('index.html', { 
+			root: path.join(__dirname, '../client/build/')
+		});
+	});
+}
 
 app.listen(port, () => {
   console.log(`Express Server listening at port:${port}`);
