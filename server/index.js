@@ -45,15 +45,15 @@ app.get('/:id', (req, res) => {
     });
 });
 
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
 
 //heroku custom variable
 if (process.env.NODE_ENV === 'production'){
   app.use(express.static('../client/build'));
 }
 
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Express Server listening at port:${port}`);
